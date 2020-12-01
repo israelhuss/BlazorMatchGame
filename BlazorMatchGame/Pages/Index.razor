@@ -1,0 +1,29 @@
+﻿@page "/"
+
+<div class="container">
+    <div class="row">
+        @foreach (var animal in animalEmoji)
+        {
+        <div class="col-3">
+            <button type="button" class="btn btn-outline-dark">
+                <h1>@animal</h1>
+            </button>
+        </div>
+        }
+    </div>
+</div>
+
+
+@code {
+    List<string> animalEmoji = new List<string>()
+    {
+        "hi", "hi",
+        "hi", "hi",
+        "hi", "hi",
+        "hi", "hi",
+        "hi", "hi",
+        "hi", "hi",
+        "hi", "hi",
+        "hi", "hi"
+    };
+}
