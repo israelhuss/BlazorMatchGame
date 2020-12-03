@@ -18,13 +18,16 @@
 
 <div class="container">
     <div class="row">
-        @foreach (var animal in shuffeledAnimals)
+        @for (int i = 0; i < shuffeledAnimals.Count; i++)
         {
-        <div class="col-3">
-            <button type="button" class="btn btn-outline-dark" @onclick="@(() => ButtonClick(animal))">
-                <h1>@animal</h1>
-            </button>
-        </div>
+            string animal = shuffeledAnimals[i];
+            string uniqueDescription = $"Button #{i}";
+
+            <div class="col-3">
+                <button type="button" class="btn btn-outline-dark" @onclick="@(() => ButtonClick(animal, uniqueDescription))">
+                    <h1>@animal</h1>
+                </button>
+            </div>
         }
     </div>
 
@@ -33,7 +36,7 @@
 
 @code {
     List<string> animalEmoji = new List<string>()
-    {
+{
         "🐈", "🐈",
         "🐶", "🐶",
         "🦁", "🦁",
@@ -62,15 +65,18 @@
     }
 
     string lastAnimalFound = string.Empty;
+    string lastDescription = string.Empty;
 
-    private void ButtonClick(string animal)
+    private void ButtonClick(string animal, string description)
     {
-        if(lastAnimalFound == string.Empty)
+        if (lastAnimalFound == string.Empty)
         {
             //First selection, just remember it.
             lastAnimalFound = animal;
+            lastDescription = description;
+
         }
-        else if(lastAnimalFound == animal)
+        else if (lastAnimalFound == animal && lastDescription != description)
         {
             //Match found! reset for next pair
             lastAnimalFound = string.Empty;
