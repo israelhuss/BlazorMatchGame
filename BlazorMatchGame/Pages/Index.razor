@@ -90,6 +90,8 @@
             lastAnimalFound = animal;
             lastDescription = description;
 
+            timer.Start();
+
         }
         else if (lastAnimalFound == animal && lastDescription != description)
         {
@@ -99,8 +101,11 @@
             //Replace the found match with empty strings
             shuffeledAnimals = shuffeledAnimals.Select(a => a.Replace(animal, string.Empty)).ToList();
             matchesFound++;
-            if(matchesFound == 8)
+            if (matchesFound == 8)
             {
+                timer.Stop();
+                timeDisplay += " Play again?";
+
                 setUpGame();
             }
         }
@@ -109,5 +114,15 @@
             //User selected a second animal that doesn't match. reset
             lastAnimalFound = string.Empty;
         }
+    }
+
+    public void Timer_Tick(Object source, ElapsedEventArgs e)
+    {
+        InvokeAsync(() =>
+        {
+            tenthOfSecondElapsed++;
+            timeDisplay = (tenthOfSecondElapsed / 10F).ToString("0.0");
+            StateHasChanged();
+        });
     }
 }
